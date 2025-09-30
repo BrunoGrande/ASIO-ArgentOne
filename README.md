@@ -1,80 +1,240 @@
-Custom ASIO Driver for Armer Argent One
+Sure—here’s a clean, copy-paste-ready **README.md** you can drop straight into your repo.
 
-This repository contains the source code and documentation for a custom ASIO driver for the Armer Argent One audio interface. The goal is to provide a low‑latency, fully‑featured driver on Windows without relying on generic wrappers like ASIO4ALL.
+---
 
-Device overview
+# ASIO-ArgentOne
 
-The Argent One is a 2‑in/2‑out USB audio interface. It provides two analogue inputs, two analogue outputs and a headphone output. Key features from the official manual include:
+Custom ASIO driver (and dev toolkit) for the **Armer Argent** USB Audio 2.0 interface.
 
-Channel 1: combo XLR/¼″ input with 48 V phantom power for condenser microphones.
+> Goal: deliver a stable, low-latency ASIO device for Windows DAWs, with correct 16/24-bit formats, proper clocking, and clear channel names—without needing OEM software.
 
-Channel 2: ¼″ input with a toggleable INST mode for high‑impedance instruments such as guitars.
+---
 
-Front‑panel gain controls, signal/clipping indicators and MON button for direct monitoring (routes inputs directly to outputs with zero latency).
+## Device profile (from USB descriptors)
 
-Balanced TRS outputs and a headphone output with its own volume control.
+* **Vendor / Product:** VID `0x2F6E` (SMMMPLUS), PID `0x4E06`
+* **Strings:** Manufacturer = “Armer Argent”, Product = “Armer Argent”
+* **USB:** 2.0 High-Speed (480 Mb/s), UAC2 (Audio Function 2.0)
+* **I/O:** 2-in / 2-out (stereo)
+* **Bit depths:** 16-bit and 24-bit (alternate settings)
+* **Sample formats:** PCM
+* **Endpoints:**
 
-Supports 16‑ or 24‑bit resolution at 44.1 kHz, 48 kHz, 96 kHz and 192 kHz sample rates.
+  * IN (capture): `0x81` isochronous, async, 16-bit (`wMaxPacketSize=0x007C`) and 24-bit (`0x00BA`)
+  * OUT (playback): `0x04` isochronous, adaptive, 16-bit (`0x007C`) and 24-bit (`0x00BA`)
+* **Clocking:** Clock Source units report **host-programmable** frequency
+* **Feature Unit:** Mute (master) + Volume (per channel)
+* **Power:** Bus-powered, 100 mA
 
-Internally, the interface uses a Gaia Vision UA02A USB audio codec (UAC2), two HEF4053BT analogue switch ICs for signal routing and additional support ICs. These components have been identified via board inspection but are not documented publicly.
+> Inference: Extension Unit `wExtensionCode = 0x0BDA` suggests a Realtek-based codec path. Not required for functionality, but useful for troubleshooting.
 
-Driver design goals
+---
 
-ASIO compliance: implement a compliant IASIO interface as defined by Steinberg's ASIO SDK, supporting 2 input and 2 output channels.
+## Project structure
 
-Low latency: use event‑driven WASAPI or WDM/KS backends to achieve sub‑10 ms latency. Allow adjustable buffer sizes (64–2048 frames).
-
-Sample rates & resolution: report support for 44.1–192 kHz at 24‑bit resolution; reject unsupported rates.
-
-Channel mapping: map CH1/CH2 to the driver’s input channels. Provide an option to duplicate the instrument input to both left and right channels when running in mono mode.
-
-Control panel: provide a small configuration utility to select buffer size, sample rate and mono mixing. Hardware features such as phantom power, INST and direct monitor remain physical buttons as per the manual.
-
-Open source: all code should be openly licensed to encourage community contributions.
-
-Development plan
-
-Environment setup
-
-Download and install the Steinberg ASIO SDK (available from Steinberg after accepting their licence).
-
-Set up a C++17 build environment (Visual Studio 2019 or later). Optional: use CMake for build configuration.
-
-Familiarise yourself with example drivers provided in the SDK.
-
-Device enumeration
-
-Use the Windows API (IMMDeviceEnumerator) or the Win32 SetupAPI to locate the Argent One based on its VID/PID.
-
-Query the USB audio descriptors to confirm supported sample rates and bit depths.
-
-ASIO wrapper implementation
-
-Define a class ArgentASIODriver implementing the IASIO interface.
-
-Implement the required methods: init, start, stop, getChannels, getBufferSize, getSampleRate, setSampleRate, createBuffers, disposeBuffers, bufferSwitch, etc.
-
-Use WASAPI exclusive mode to open the Argent One endpoint at the desired sample rate and buffer size. Alternatively, implement a WDM/Kernel Streaming (KS) backend for lower latency.
-
-Buffer management
-
-Create double buffers for input and output, sized according to the selected ASIO buffer length.
-
-In the bufferSwitch callback, copy data between the WASAPI/KS buffers and the ASIO buffers.
-
-Configuration utility
-
-Provide a Windows GUI application (e.g., using Win32 API or Qt) that writes user preferences (sample rate, buffer size, mono mixing) to the registry or a configuration file. The driver should read these preferences at startup.
-
-Testing
-
-Test with audio applications (Reaper, Cubase) and Rocksmith using the RS_ASIO wrapper. Measure round‑trip latency and adjust buffer sizes accordingly.
-
-Test sample rate changes, device hot‑plugging and error handling.
-
-Repository structure
+```
 ASIO-ArgentOne/
-├── src/              # C++ source files for the ASIO driver
-├── control-panel/    # Code for the configuration utility
-├── docs/             # Documentation and further reading
-└── README.md         # This file
+├─ /src/
+│  ├─ asio/           # ASIO SDK wrapper + driver class (no Steinberg code included)
+│  ├─ core/           # device enumeration, streaming engine, ring buffers
+│  ├─ ks/             # WDM-KS (Kernel Streaming) plumbing for WASAPI/KS path
+│  ├─ usb/            # (optional) WinUSB user-mode ISO path experiments
+│  └─ util/           # logging, GUIDs, registry helpers
+├─ /installer/        # Inno Setup or WiX installer scripts + .reg templates
+├─ /tools/            # descriptor dumps, latency tests, debug apps
+├─ /docs/             # design notes, troubleshooting, protocol sketches
+└─ README.md
+```
+
+---
+
+## What we’re building (phased)
+
+1. **ASIO Wrapper (WASAPI/KS path)**
+
+   * Expose an ASIO device that talks to Windows’ `usbaudio2.sys` via WASAPI Exclusive / Kernel Streaming.
+   * Fast to ship, stable, and already handles clocking/alt-settings.
+
+2. **Native UAC2 map (KS pin-accurate)**
+
+   * Map UAC2 terminals/feature units to ASIO channels and controls.
+   * Proper safety-offset, low buffer sizes, and device-side mute/volume.
+
+3. **(Optional) Direct USB engine (WinUSB)**
+
+   * Bypass class driver for research-grade latency.
+   * Requires robust isochronous IN/OUT scheduling and error recovery.
+   * Only if we need sub-class-driver latencies—and we accept higher complexity.
+
+---
+
+## Features (current / planned)
+
+* ✅ Detect only **VID 0x2F6E / PID 0x4E06** (avoid hijacking other devices)
+* ✅ ASIO device name: **“Argent One (ASIO)”**
+* ✅ Stereo in/out with stable channel labels: **In L/R, Out L/R**
+* ✅ 16-bit and 24-bit PCM, buffer sizes from 32–2048 frames (host-dependent)
+* ✅ Mute/Volume bridged to device Feature Unit (where supported)
+* ⏳ Sample-rate set via host (44.1/48/88.2/96/176.4/192 kHz)
+* ⏳ Safety offset tuning for popular DAWs (REAPER, Cubase, Live, Studio One)
+* ⏳ Installer that registers ASIO under `HKLM\SOFTWARE\ASIO`
+
+---
+
+## Requirements
+
+* **Windows 10/11** (x64)
+* **Visual Studio 2022** (Desktop development with C++)
+* **Windows SDK + WDK** (matching your OS version)
+* **Steinberg ASIO SDK 2.3+**
+
+  * You must download it from Steinberg and accept their license.
+  * Set env var `ASIOSDK_DIR` to the SDK root (no SDK files in this repo).
+
+---
+
+## Building
+
+1. Install VS2022, Windows SDK, and WDK.
+2. Download the **ASIO SDK**, set `ASIOSDK_DIR` (e.g., `C:\SDKs\ASIO`).
+3. Clone this repo and open `ASIO-ArgentOne.sln`.
+4. Build **Release x64**.
+
+Artifacts:
+
+* `ArgentOneASIO.dll` (drop-in ASIO driver)
+* Optional CLI test tools under `/tools/bin`
+
+---
+
+## Installing (developer mode)
+
+### 1) Place the DLL
+
+Copy the driver to the common ASIO location:
+
+```
+C:\Program Files\Steinberg\ASIO\ArgentOneASIO\ArgentOneASIO.dll
+```
+
+### 2) Register in the registry
+
+Create a `.reg` with your final paths/CLSID:
+
+```reg
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\ASIO\Argent One (ASIO)]
+"CLSID"="{5A07E2F8-72A5-4F47-8E31-5F3E3C0FB0D3}"
+"Description"="Argent One (ASIO)"
+"Dll"="C:\\Program Files\\Steinberg\\ASIO\\ArgentOneASIO\\ArgentOneASIO.dll"
+"Manufacturer"="Argent"
+"Version"="1.0.0"
+```
+
+> Replace the CLSID with the one compiled into the driver. We keep the CLSID in `/src/asio/Guids.h`.
+
+### 3) Verify in a DAW
+
+Open your DAW → Audio Device → ASIO → **Argent One (ASIO)**.
+Select 16/24-bit and the desired sample rate in the driver panel.
+
+---
+
+## How it works (high level)
+
+* **Enumeration:** we match **USB\VID_2F6E&PID_4E06** and open the **UAC2** pins through KS.
+* **Streaming:** ring buffers per direction; double or triple buffering depending on requested block size.
+* **Clocking:** we request the rate on the host side; device advertises host-programmable clock.
+* **Formats:** we expose **16-bit** and **24-bit** ASIO sample types; channel layout **FL/FR**.
+* **Controls:** mute/volume linked to the device Feature Unit when available; falls back to software gain.
+* **Latency reporting:** bufferSize / sampleRate + safetyOffset (configured per backend).
+
+---
+
+## Known good settings (starting points)
+
+* **48 kHz, 64-128 samples**: most USB 2.0 HS devices are stable here.
+* **96 kHz, 128-256 samples**: fine on modern chipsets.
+* **192 kHz**: start at **256-512 samples** and lower as stable.
+
+If you hear crackles, increase the buffer or disable CPU C-States / USB selective suspend for tests.
+
+---
+
+## Troubleshooting
+
+* **Device not listed in DAW**
+
+  * Check registry key under `HKLM\SOFTWARE\ASIO`
+  * Ensure `ArgentOneASIO.dll` path is correct and x64 build is used
+
+* **No audio / silence**
+
+  * Confirm the DAW sample rate matches the device’s current rate
+  * Try 48 kHz first; then 44.1 kHz
+
+* **Glitches under load**
+
+  * Try bigger buffer sizes
+  * Disable “USB selective suspend” in Windows Power Options
+  * Prefer rear-panel USB ports (direct to chipset)
+
+---
+
+## Developer notes
+
+* **Endpoints**
+
+  * IN `0x81` (async), OUT `0x04` (adaptive)
+  * Alt-settings provide **16-bit** and **24-bit** subslots
+
+* **Safety offset**
+
+  * Tunable in `/src/asio/AsioDriver.cpp` → `kDefaultSafetyFrames`
+  * DAWs may add their own hidden offsets; verify with loopback tests
+
+* **Channel naming**
+
+  * Capture: `Input 1 (L)`, `Input 2 (R)`
+  * Playback: `Output 1 (L)`, `Output 2 (R)`
+
+* **Logging**
+
+  * Set `ARGENT_LOG=1` env var to enable verbose logs in `%PROGRAMDATA%\ArgentOne\logs`
+
+---
+
+## Roadmap
+
+* Device panel (tray) for rate/bit-depth/buffer switching
+* Per-rate safety-offset presets
+* Direct WinUSB engine prototype with ISO scheduling
+* Firmware notes (if we ever need alt-setting tweaks)
+
+---
+
+## License
+
+* **This repository:** MIT (see `LICENSE`)
+* **Steinberg ASIO SDK:** subject to Steinberg’s license (you must obtain it yourself; not included here)
+
+---
+
+## Credits
+
+* USB descriptor dump & reverse notes by the **Argent** team
+* ASIO plumbing inspired by public SDK samples (no Steinberg code included here)
+
+---
+
+### Quick checklist (before you open your DAW)
+
+* [ ] Copied `ArgentOneASIO.dll` to `C:\Program Files\Steinberg\ASIO\ArgentOneASIO\`
+* [ ] Wrote registry entry under `HKLM\SOFTWARE\ASIO\Argent One (ASIO)` with the correct CLSID and path
+* [ ] Selected **Argent One (ASIO)** in your DAW
+* [ ] Started at **48 kHz / 128 samples**, then tuned down
+
+---
+
+If you want, I can tailor this README with your exact company/author info and drop in your repo’s folder structure and CLSID you’re using.
