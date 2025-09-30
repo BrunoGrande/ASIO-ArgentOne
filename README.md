@@ -1,6 +1,3 @@
-Sure—here’s a clean, copy-paste-ready **README.md** you can drop straight into your repo.
-
----
 
 # ASIO-ArgentOne
 
