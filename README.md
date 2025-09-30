@@ -64,11 +64,11 @@ Custom ASIO driver (and dev toolkit) for the **Armer Argent** USB Audio 2.0 inte
 
 ## Features (current / planned)
 
-* ✅ Detect **only** VID `0x2F6E` / PID `0x4E06`
-* ✅ ASIO device name: **“Argent One (ASIO)”**
-* ✅ Stereo I/O with stable channel labels: **In L/R, Out L/R**
-* ✅ 16-bit and 24-bit PCM; buffer sizes from ~32–2048 frames (host-dependent)
-* ✅ Mute/Volume bridged to device Feature Unit (when exposed)
+* ⏳ Detect **only** VID `0x2F6E` / PID `0x4E06`
+* ⏳ ASIO device name: **“Argent One (ASIO)”**
+* ⏳ Stereo I/O with stable channel labels: **In L/R, Out L/R**
+* ⏳ 16-bit and 24-bit PCM; buffer sizes from ~32–2048 frames (host-dependent)
+* ⏳ Mute/Volume bridged to device Feature Unit (when exposed)
 * ⏳ Host-set sample rates (44.1/48/88.2/96/176.4/192 kHz)
 * ⏳ Safety-offset tuning for popular DAWs (REAPER, Cubase, Live, Studio One)
 * ⏳ Installer that registers ASIO under `HKLM\SOFTWARE\ASIO`
@@ -213,7 +213,7 @@ If you hear crackles, increase the buffer, prefer rear-panel USB ports, and disa
 
 ## Credits
 
-* USB descriptor dump & reverse-engineering notes by the **Argent** team
+* USB descriptor dump & engineering notes by the **Argent** team over their site and manual for the equipement
 * ASIO plumbing inspired by public SDK samples (no Steinberg code included here)
 
 ---
