@@ -196,11 +196,40 @@ When RS_ASIO handles Rocksmith’s audio output through ASIO, the Windows audio 
 
 ### Important Behavior Notes
 
-* If **Mic (Ch1)** and **Instrument/Line (Ch2)** are used simultaneously, the inputs are summed to **mono**. *(Manual p. 11)*
-* Enabling **INST** on Channel 2 reconfigures it to accept high-impedance instruments (e.g. guitar, bass). Disabling it sets the channel as a balanced mono line input, ideal for keyboards, synthesizers, or mixers. *(Manual p. 8–9)*
-* When **Direct Monitor** is active, input signals are routed directly to outputs with zero latency. If the DAW also routes inputs to outputs, users may hear doubled signals (echo effect). *(Manual p. 9)*
-* Phantom Power supplies 48V only to Channel 1. Use with condenser microphones that require it, and disable when not in use to avoid unwanted noise. *(Manual p. 7)*
+**A) Mic (Ch1) only**
 
+* Works as a mono microphone input.
+* +48 V Phantom Power can be enabled if you’re using a condenser mic.
+* With **Direct Monitor ON**, you’ll hear the mic in mono with zero latency. If DAW monitoring is also enabled, you may hear an echo due to the delayed duplicate signal.
+
+**B) Instrument (Ch2) with INST ON**
+
+* High-impedance (Hi-Z) unbalanced input for guitar, bass, etc.
+* Treated as a mono source.
+* **Direct Monitor ON** plays it back in mono instantly; disable DAW monitoring to avoid double-hearing.
+
+**C) Line-level source (Ch2 with INST OFF)**
+
+* Balanced mono TRS input, designed for keyboards, synthesizers, or mixer outputs.
+* Behaves as a mono source.
+* **Direct Monitor ON** plays it back in mono with zero latency.
+
+**D) Mic (Ch1) + Inst/Line (Ch2) simultaneously**
+
+* **Manual note:** if the microphone and instrument inputs are used at the same time, **both inputs will be in mono**.
+* **Direct Monitor ON:** the monitored signal is a **mono mix** of both inputs with zero latency.
+* **Direct Monitor OFF:** you only hear what the DAW returns.
+* **Recording to DAW:** the manual does not explicitly confirm whether the computer receives them as separate channels or a summed mono feed. In practice, most class‑compliant 2×2 interfaces still present **Input 1** and **Input 2** separately; check your DAW input list to verify.
+
+**Headphone Output & Direct Monitoring Context**
+
+* The headphone jack supports standard stereo TRS; 4-pole headsets may not work correctly.
+* Direct Monitor affects what you hear in headphones and on the line outputs: it bypasses the computer and mixes inputs directly to the outputs, always in mono.
+
+**Phantom Power**
+
+* Supplies 48 V only to Channel 1. Use with condenser microphones that require it.
+* Disable Phantom Power when not in use to avoid unwanted noise or potential damage to dynamic/ribbon mics.
 
 ---
 
