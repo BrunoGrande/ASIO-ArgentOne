@@ -18,7 +18,7 @@ Este repositório fornece configuração e instruções para usar a interface de
 6. [Streaming e bypass ASIO](#streaming-e-bypass-asio)
 7. [Solução de problemas](#solução-de-problemas)
 8. [Detalhes do hardware Argent One](#detalhes-do-hardware-argent-one)
-9. [Créditos e referências](#creditos-e-referências)
+9. [Créditos e referências](#créditos-e-referências)
 
 ---
 
