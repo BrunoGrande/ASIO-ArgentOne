@@ -17,7 +17,8 @@ This repository provides configuration and instructions for using the **Armer Ar
 5. [Testing & Latency Tuning](#testing--latency-tuning)
 6. [Streaming & ASIO Bypass](#streaming--asio-bypass)
 7. [Troubleshooting](#troubleshooting)
-8. [Credits & References](#credits--references)
+8. [Argent One Hardware Details](#argent-one-hardware-details)
+9. [Credits & References](#credits--references)
 
 ---
 
@@ -123,7 +124,7 @@ EnableSoftwareMasterVolumeControl = 0
 4. **Set up Windows audio**
 
    * Set Argent One as the default playback & capture device
-   * Select 48 kHz in device properties. This is the recommended rate for Rocksmith; other applications may use different sample rates if required
+   * Select 48 kHz in device properties. This is the recommended rate for Rocksmith; other applications may use different sample rates if required
    * Disable audio enhancements and exclusive control
 
 5. **Launch FlexASIO GUI (optional)**
@@ -152,7 +153,7 @@ EnableSoftwareMasterVolumeControl = 0
 * For lower latency, experiment with `256` or `128`
 * Review `RS_ASIO-log.txt` to verify buffer settings and check for xruns
 * Monitor CPU / DPC latency with tools like LatencyMon
-* Ensure all devices are configured at 48 kHz to avoid resampling overhead
+* Ensure all devices are configured at 48 kHz to avoid resampling overhead
 
 ---
 
@@ -179,8 +180,32 @@ When RS_ASIO handles Rocksmith’s audio output through ASIO, the Windows audio 
 
 ---
 
+## Argent One Hardware Details
+
+* [Product Page](https://armer.com.br/produtos/interface-de-audio-usb-armer-argent-one/)
+* [Official Manual (PDF)](https://drive.google.com/file/d/15iVYalthiWtdguu4y76YLcfhcIaOtVLd/view?usp=sharing)
+
+### Key Features
+
+* Two combo inputs (XLR / ¼” TRS).
+* +48V Phantom Power for condenser microphones (Channel 1).
+* Channel 2 switchable between **Instrument (INST)** and **Line**.
+* Direct Monitoring switch (MON) for zero-latency monitoring.
+* Balanced TRS outputs for studio monitors.
+* Dedicated headphone output with its own gain control.
+
+### Important Behavior Notes
+
+* If **Mic (Ch1)** and **Instrument/Line (Ch2)** are used simultaneously, the inputs are summed to **mono**.
+* Enabling **INST** on Channel 2 reconfigures it to accept high-impedance instruments (e.g. guitar, bass). Disabling it sets the channel as a balanced mono line input, ideal for keyboards, synthesizers, or mixers.
+* When **Direct Monitor** is active, input signals are routed directly to outputs with zero latency. If the DAW also routes inputs to outputs, users may hear doubled signals (echo effect).
+* Phantom Power supplies 48V only to Channel 1. Use with condenser microphones that require it, and disable when not in use to avoid unwanted noise.
+
+---
+
 ## Credits & References
 
 * **RS_ASIO** — patch for Rocksmith 2014 ASIO support
 * **FlexASIO** — universal ASIO driver using PortAudio and Windows audio backends
 * **FlexASIO GUI** — helper GUI for editing `FlexASIO.toml`
+* **Armer Argent One** — hardware details based on [official manual] and manufacturer specs
