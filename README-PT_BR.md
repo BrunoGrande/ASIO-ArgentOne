@@ -169,14 +169,14 @@ Quando o RS_ASIO lida com a saída de áudio do Rocksmith através do ASIO, a pi
 
 ## Solução de problemas
 
-| Sintoma                 | Causa provável                        | Correção sugerida                                          |
-| ----------------------- | ------------------------ ----------- | ------------------------------------------------------ |
-| A GUI trava ao iniciar    | `sampleRate` presente no TOML        | Remova ou comente `sampleRate`                     |
-| Rocksmith sem som        | incompatibilidade ou configuração incorreta do driver | Verifique `RS_ASIO-log.txt` e verifique `Driver = FlexASIO` |
-| Estalos/falhas     | buffer muito pequeno, problemas com USB/alimentação  | Aumente o buffer, desative a economia de energia USB              |
-| Latência muito alta        | Buffer muito grande                    | Reduza o buffer gradualmente                                |
-| Sem áudio do jogo no stream | ASIO ignorando o Windows              | Habilite a saída WASAPI ou use o roteamento de áudio virtual      |
-| GUI não mostra dispositivos    | Dispositivo desativado nas configurações do Windows | Habilite o dispositivo nas configurações de som do Windows                |
+| Sintoma                     | Causa provável                                        | Correção sugerida                                           |
+| ----------------------------| ------------------------------------------------------| ------------------------------------------------------------|
+| A GUI trava ao iniciar      | `sampleRate` presente no TOML                         | Remova ou comente `sampleRate`                      	       |
+| Rocksmith sem som           | incompatibilidade ou configuração incorreta do driver | Verifique `RS_ASIO-log.txt` e verifique `Driver = FlexASIO` |
+| Estalos/falhas              | buffer muito pequeno, problemas com USB/alimentação   | Aumente o buffer, desative a economia de energia USB        |
+| Latência muito alta         | Buffer muito grande                                   | Reduza o buffer gradualmente                                |
+| Sem áudio do jogo no stream | ASIO ignorando o Windows                              | Habilite a saída WASAPI ou use o roteamento de áudio virtual|
+| GUI não mostra dispositivos | Dispositivo desativado nas configurações do Windows   | Habilite o dispositivo nas configurações de som do Windows  |
 
 ---
 
