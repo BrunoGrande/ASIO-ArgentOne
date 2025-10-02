@@ -1,3 +1,6 @@
+[![English](https://img.shields.io/badge/lang-English-informational)](./README.md)
+[![Português (BR)](https://img.shields.io/badge/idioma-Portugu%C3%AAs%20(BR)-blue)](./README.pt-BR.md)
+
 Configuração do Argent One + FlexASIO + RS_ASIO
 
 Este repositório fornece configuração e instruções para usar a interface de áudio **Armer Argent One** com **FlexASIO** (driver ASIO universal) e **RS_ASIO** (patch Rocksmith 2014 para habilitar ASIO). A configuração permite executar Guitar Rig, Rocksmith e áudio padrão do Windows (YouTube, Discord, etc.) simultaneamente sem conflitos.
