@@ -15,10 +15,10 @@ Este repositório fornece configuração e instruções para usar a interface de
 3. [Arquivos de configuração incluídos](#arquivos-de-configuração-incluídos)
 4. [Instruções de configuração](#instruções-de-configuração)
 5. [Teste e ajuste de latência](#teste-e-ajuste-de-latência)
-6. [Streaming e bypass ASIO](#streaming-e-asio-bypass)
-7. [Solução de problemas](#troubleshooting)
-8. [Detalhes do hardware Argent One](#argent-one-hardware-details)
-9. [Créditos e referências](#credits-e-references)
+6. [Streaming e bypass ASIO](#streaming-e-bypass-asio)
+7. [Solução de problemas](#solução-de-problemas)
+8. [Detalhes do hardware Argent One](#detalhes-do-hardware-argent-one)
+9. [Créditos e referências](#creditos-e-referências)
 
 ---
 
