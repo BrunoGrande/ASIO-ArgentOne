@@ -187,12 +187,12 @@ When RS_ASIO handles Rocksmith’s audio output through ASIO, the Windows audio 
 
 ### Key Features
 
-* Two combo inputs (XLR / ¼” TRS). *(Manual p. 6)*
-* +48V Phantom Power for condenser microphones (Channel 1). *(Manual p. 7)*
-* Channel 2 switchable between **Instrument (INST)** and **Line**. *(Manual p. 8)*
-* Direct Monitoring switch (MON) for zero-latency monitoring. *(Manual p. 9)*
-* Balanced TRS outputs for studio monitors. *(Manual p. 10)*
-* Dedicated headphone output with its own gain control. *(Manual p. 10)*
+* Two combo inputs (XLR / ¼” TRS).
+* +48V Phantom Power for condenser microphones (Channel 1).
+* Channel 2 switchable between **Instrument (INST)** and **Line**.
+* Direct Monitoring switch (MON) for zero-latency monitoring.
+* Balanced TRS outputs for studio monitors.
+* Dedicated headphone output with its own gain control.
 
 ### Important Behavior Notes
 
