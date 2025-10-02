@@ -2,7 +2,6 @@
 
 This repository contains the configuration and instructions to use your **Armer Argent One** audio interface with **FlexASIO** (universal ASIO driver) and **RS_ASIO** (Rocksmith 2014 patch for ASIO support). The goal is to allow you to use Guitar Rig, Rocksmith, and regular Windows audio (YouTube, Discord, etc.) together without driver conflicts.
 
-> ⚠️ *Placeholders* below (`<LINK_TO_PROJECT>`) should be replaced with the actual GitHub or release URLs.
 https://github.com/mdias/rs_asio
 
 https://github.com/dechamps/FlexASIO
