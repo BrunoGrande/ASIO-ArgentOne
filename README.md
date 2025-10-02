@@ -1,12 +1,10 @@
 # Argent One + FlexASIO + RS_ASIO Setup
 
-This repository contains the configuration and instructions to use your **Armer Argent One** audio interface with **FlexASIO** (universal ASIO driver) and **RS_ASIO** (Rocksmith 2014 patch for ASIO support). The goal is to allow you to use Guitar Rig, Rocksmith, and regular Windows audio (YouTube, Discord, etc.) together without driver conflicts.
+This repository provides configuration and instructions for using your **Armer Argent One** audio interface with **FlexASIO** (universal ASIO driver) and **RS_ASIO** (Rocksmith 2014 patch to enable ASIO). The system allows you to run Guitar Rig, Rocksmith, and standard Windows audio (YouTube, Discord, etc.) simultaneously.
 
-https://github.com/mdias/rs_asio
-
-https://github.com/dechamps/FlexASIO
-
-https://github.com/flipswitchingmonkey/FlexASIO_GUI
+- RS_ASIO: https://github.com/mdias/rs_asio :contentReference[oaicite:0]{index=0}  
+- FlexASIO: https://github.com/dechamps/FlexASIO :contentReference[oaicite:1]{index=1}  
+- FlexASIO GUI: https://github.com/flipswitchingmonkey/FlexASIO_GUI :contentReference[oaicite:2]{index=2}  
 
 ---
 
@@ -14,53 +12,55 @@ https://github.com/flipswitchingmonkey/FlexASIO_GUI
 
 1. [Overview](#overview)  
 2. [Prerequisites](#prerequisites)  
-3. [Configuration Files](#configuration-files)  
-4. [Step-by-Step Setup](#step-by-step-setup)  
+3. [Included Config Files](#included-config-files)  
+4. [Setup Instructions](#setup-instructions)  
 5. [Testing & Latency Tuning](#testing--latency-tuning)  
-6. [Troubleshooting](#troubleshooting)  
-7. [License & Credits](#license--credits)
+6. [Streaming & ASIO Bypass](#streaming--asio-bypass)  
+7. [Troubleshooting](#troubleshooting)  
+8. [Credits & References](#credits--references)
 
 ---
 
 ## Overview
 
-- **Argent One** is your audio interface (Armer brand).  
-- **FlexASIO** is a generic ASIO driver that uses Windows audio backends (WASAPI, etc.) to allow multiple audio apps to share a single interface.  
-- **RS_ASIO** is a patch that injects ASIO support into **Rocksmith 2014**. It allows Rocksmith to use ASIO drivers instead of default WASAPI. :contentReference[oaicite:0]{index=0}  
+- **Argent One** is your audio interface (by Armer).  
+- **FlexASIO** acts as a universal ASIO driver, bridging between ASIO hosts and Windows audio backends (WASAPI, etc.), enabling multiple applications to use the same interface. :contentReference[oaicite:3]{index=3}  
+- **RS_ASIO** injects ASIO support into **Rocksmith 2014**, replacing or augmenting its WASAPI audio handling. :contentReference[oaicite:4]{index=4}  
 
-With this setup, you can run:
-- Guitar Rig (or any VST-based amp sim) using ASIO via FlexASIO  
-- Rocksmith via RS_ASIO  
-- Regular Windows audio (YouTube, Discord) at the same time  
+With this setup, you’ll be able to:
 
-You avoid needing Voicemeeter or juggling drivers manually.
+- Use Guitar Rig (or other VST / amp simulators) via ASIO through FlexASIO  
+- Play Rocksmith with ASIO (via RS_ASIO)  
+- Let Windows audio (e.g. browser, system sounds) co-exist with ASIO apps  
 
 ---
 
 ## Prerequisites
 
 - Windows PC  
-- **Armer Argent One** interface, installed and working in Windows  
-- **FlexASIO** installed (put `FlexASIO.dll` etc in system)  
-- **FlexASIO GUI** for easier editing of settings (optional, but helpful)  
-- **RS_ASIO** patch for Rocksmith 2014 (`RS_ASIO.dll`, etc)  
-- Basic familiarity with editing `.toml` and `.ini` files  
+- **Armer Argent One** interface, installed and functioning  
+- **FlexASIO** (driver) installed  
+- **FlexASIO GUI** (optional but helpful)  
+- **RS_ASIO** patch for Rocksmith 2014  
+- Basic comfort editing `.toml` and `.ini` text files  
+- .NET Desktop Runtime 6.x installed (for the FlexASIO GUI) :contentReference[oaicite:5]{index=5}  
 
 ---
 
-## Configuration Files
+## Included Config Files
 
-This repo includes two key config files:
+You should find in this repo:
 
-- `FlexASIO.toml` — holds the FlexASIO configuration  
-- `RS_ASIO.ini` — config for RS_ASIO in Rocksmith  
+- `FlexASIO.toml` — configuration for FlexASIO  
+- `RS_ASIO.ini` — configuration for RS_ASIO  
 
-Below is the version that works for your setup using **Argent One** as both input and output:
+Below is the version tested for **Argent One (input & output)**:
 
 ### FlexASIO.toml
+
 ```toml
 backend = "Windows WASAPI"
-# sampleRate = 48000     # leave commented (GUI may crash if this is present)
+# sampleRate = 48000     # GUI may crash if uncommented
 bufferSizeSamples = 512
 
 [input]
