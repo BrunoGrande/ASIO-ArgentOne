@@ -199,22 +199,25 @@ When RS_ASIO handles Rocksmith’s audio output through ASIO, the Windows audio 
 **A) Mic (Ch1) only**
 
 * Works as a mono microphone input.
+* Connector type: **3‑pin XLR, balanced mono**. Balanced here means it carries the same mono signal on two wires with opposite polarity to cancel noise, not that it is stereo. New users often confuse “balanced” with “stereo.”
 * +48 V Phantom Power can be enabled if you’re using a condenser mic.
 * With **Direct Monitor ON**, you’ll hear the mic in mono with zero latency. If DAW monitoring is also enabled, you may hear an echo due to the delayed duplicate signal.
 
 **B) Instrument (Ch2) with INST ON**
 
 * High-impedance (Hi-Z) unbalanced input for guitar, bass, etc.
+* Connector type: **¼” TS (2-pole), unbalanced mono**. TS cables carry one mono signal, not stereo. New users often confuse TS with stereo connectors, but it only carries a single channel.
 * Treated as a mono source.
 * **Direct Monitor ON** plays it back in mono instantly; disable DAW monitoring to avoid double-hearing.
 
 **C) Line-level source (Ch2 with INST OFF)**
 
 * Balanced mono TRS input, designed for keyboards, synthesizers, or mixer outputs.
+* Connector type: **¼” TRS (3-pole), balanced mono**. Balanced means the same mono signal is carried on two conductors with opposite polarity to reject noise. It is not stereo — new users often confuse balanced TRS with stereo TRS.
 * Behaves as a mono source.
 * **Direct Monitor ON** plays it back in mono with zero latency.
 
-**D) Mic (Ch1) + Inst/Line (Ch2) simultaneously**
+**D) Mic (Ch1) + Inst/Line (Ch2) simultaneously** Mic (Ch1) + Inst/Line (Ch2) simultaneously**
 
 * **Manual note:** if the microphone and instrument inputs are used at the same time, **both inputs will be in mono**.
 * **Direct Monitor ON:** the monitored signal is a **mono mix** of both inputs with zero latency.
