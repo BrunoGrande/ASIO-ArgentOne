@@ -50,24 +50,24 @@ Com essa configuração, é possível:
 
 ## Arquivos de configuração incluídos
 
-* `FlexASIO.toml` — Configuração do FlexASIO
-* `RS_ASIO.ini` — Configuração do RS_ASIO
+* `FlexASIO.toml` - Configuração do FlexASIO
+* `RS_ASIO.ini` - Configuração do RS_ASIO
 
 ### FlexASIO.toml
 
 ```toml
-backend = “Windows WASAPI”
+backend = "Windows WASAPI"
 # sampleRate = 48000     # A GUI pode travar se não for comentada
 bufferSizeSamples = 512
 
 [input]
-device = “Microfone (2- Armer Argent)”
+device = "Microfone (2- Armer Argent)"
 channels = 1
 wasapiExclusiveMode = false
 wasapiAutoConvert = true
 
 [output]
-device = “Fones de ouvido (2- Armer Argent)”
+device = "Fones de ouvido (2- Armer Argent)"
 wasapiExclusiveMode = false
 wasapiAutoConvert = true
 ```
@@ -187,7 +187,7 @@ Quando o RS_ASIO lida com a saída de áudio do Rocksmith através do ASIO, a pi
 
 ### Principais recursos
 
-* Duas entradas combinadas (XLR / TRS de ¼”).
+* Duas entradas combinadas (XLR / TRS de 1/4").
 * Alimentação fantasma de +48 V para microfones condensadores (Canal 1).
 * Canal 2 selecionável entre **Instrumento (INST)** e **Linha**.
 * Interruptor de monitoramento direto (MON) para monitoramento sem latência.
@@ -199,21 +199,21 @@ Quando o RS_ASIO lida com a saída de áudio do Rocksmith através do ASIO, a pi
 **A) Apenas microfone (Canal 1)**
 
 * Funciona como uma entrada de microfone mono.
-* Tipo de conector: **XLR de 3 pinos, mono balanceado**. Balanceado aqui significa que ele transporta o mesmo sinal mono em dois fios com polaridade oposta para cancelar o ruído, não que seja estéreo. Os novos usuários costumam confundir “balanceado” com “estéreo”.
+* Tipo de conector: **XLR de 3 pinos, mono balanceado**. Balanceado aqui significa que ele transporta o mesmo sinal mono em dois fios com polaridade oposta para cancelar o ruído, não que seja estéreo. Os novos usuários costumam confundir "balanceado" com "estéreo".
 * A alimentação fantasma de +48 V pode ser ativada se você estiver usando um microfone condensador.
 * Com o **Monitor Direto ativado**, você ouvirá o microfone em mono com latência zero. Se o monitoramento DAW também estiver ativado, você poderá ouvir um eco devido ao sinal duplicado atrasado.
 
 **B) Instrumento (Ch2) com INST ON**
 
 * Entrada não balanceada de alta impedância (Hi-Z) para guitarra, baixo, etc.
-* Tipo de conector: **¼” TS (2 pólos), mono não balanceado**. Os cabos TS transportam um sinal mono, não estéreo. Os novos usuários costumam confundir TS com conectores estéreo, mas ele transporta apenas um único canal.
+* Tipo de conector: **1/4" TS (2 pólos), mono não balanceado**. Os cabos TS transportam um sinal mono, não estéreo. Os novos usuários costumam confundir TS com conectores estéreo, mas ele transporta apenas um único canal.
 * Tratado como uma fonte mono.
 * **Monitor direto ativado** reproduz em mono instantaneamente; desative o monitoramento DAW para evitar ouvir duas vezes.
 
 **C) Fonte de nível de linha (Ch2 com INST desativado)**
 
 * Entrada TRS mono balanceada, projetada para teclados, sintetizadores ou saídas de mixer.
-* Tipo de conector: **TRS de ¼” (3 pólos), mono balanceado**. Balanceado significa que o mesmo sinal mono é transportado em dois condutores com polaridade oposta para rejeitar ruídos. Não é estéreo — novos usuários costumam confundir TRS balanceado com TRS estéreo.
+* Tipo de conector: **TRS de 1/4" (3 pólos), mono balanceado**. Balanceado significa que o mesmo sinal mono é transportado em dois condutores com polaridade oposta para rejeitar ruídos. Não é estéreo - novos usuários costumam confundir TRS balanceado com TRS estéreo.
 * Funciona como uma fonte mono.
 * **Monitor direto ativado** reproduz em mono com latência zero.
 
@@ -222,7 +222,7 @@ Quando o RS_ASIO lida com a saída de áudio do Rocksmith através do ASIO, a pi
 * **Observação manual:** se as entradas de microfone e instrumento forem usadas ao mesmo tempo, **ambas as entradas estarão em mono**.
 * **Monitor direto ativado:** o sinal monitorado é uma **mixagem mono** de ambas as entradas com latência zero.
 * **Monitor direto desligado:** você só ouve o que o DAW retorna.
-* **Gravação no DAW:** o manual não confirma explicitamente se o computador os recebe como canais separados ou como um feed mono somado. Na prática, a maioria das interfaces 2×2 compatíveis com a classe ainda apresentam **Entrada 1** e **Entrada 2** separadamente; verifique a lista de entradas do seu DAW para confirmar.
+* **Gravação no DAW:** o manual não confirma explicitamente se o computador os recebe como canais separados ou como um feed mono somado. Na prática, a maioria das interfaces 2x2 compatíveis com a classe ainda apresentam **Entrada 1** e **Entrada 2** separadamente; verifique a lista de entradas do seu DAW para confirmar.
 
 **Saída de fone de ouvido e contexto de monitoramento direto**
 
@@ -238,7 +238,7 @@ Quando o RS_ASIO lida com a saída de áudio do Rocksmith através do ASIO, a pi
 
 ## Créditos e referências
 
-* **RS_ASIO** — patch para suporte ASIO do Rocksmith 2014
-* **FlexASIO** — driver ASIO universal usando PortAudio e backends de áudio do Windows
-* **FlexASIO GUI** — GUI auxiliar para editar `FlexASIO.toml`
-* **Armer Argent One** — detalhes de hardware com base no [manual oficial] e nas especificações do fabricante
+* **RS_ASIO** - patch para suporte ASIO do Rocksmith 2014
+* **FlexASIO** - driver ASIO universal usando PortAudio e backends de áudio do Windows
+* **FlexASIO GUI** - GUI auxiliar para editar `FlexASIO.toml`
+* **Armer Argent One** - detalhes de hardware com base no [manual oficial] e nas especificações do fabricante
