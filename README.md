@@ -187,19 +187,20 @@ When RS_ASIO handles Rocksmith’s audio output through ASIO, the Windows audio 
 
 ### Key Features
 
-* Two combo inputs (XLR / ¼” TRS).
-* +48V Phantom Power for condenser microphones (Channel 1).
-* Channel 2 switchable between **Instrument (INST)** and **Line**.
-* Direct Monitoring switch (MON) for zero-latency monitoring.
-* Balanced TRS outputs for studio monitors.
-* Dedicated headphone output with its own gain control.
+* Two combo inputs (XLR / ¼” TRS). *(Manual p. 6)*
+* +48V Phantom Power for condenser microphones (Channel 1). *(Manual p. 7)*
+* Channel 2 switchable between **Instrument (INST)** and **Line**. *(Manual p. 8)*
+* Direct Monitoring switch (MON) for zero-latency monitoring. *(Manual p. 9)*
+* Balanced TRS outputs for studio monitors. *(Manual p. 10)*
+* Dedicated headphone output with its own gain control. *(Manual p. 10)*
 
 ### Important Behavior Notes
 
-* If **Mic (Ch1)** and **Instrument/Line (Ch2)** are used simultaneously, the inputs are summed to **mono**.
-* Enabling **INST** on Channel 2 reconfigures it to accept high-impedance instruments (e.g. guitar, bass). Disabling it sets the channel as a balanced mono line input, ideal for keyboards, synthesizers, or mixers.
-* When **Direct Monitor** is active, input signals are routed directly to outputs with zero latency. If the DAW also routes inputs to outputs, users may hear doubled signals (echo effect).
-* Phantom Power supplies 48V only to Channel 1. Use with condenser microphones that require it, and disable when not in use to avoid unwanted noise.
+* If **Mic (Ch1)** and **Instrument/Line (Ch2)** are used simultaneously, the inputs are summed to **mono**. *(Manual p. 11)*
+* Enabling **INST** on Channel 2 reconfigures it to accept high-impedance instruments (e.g. guitar, bass). Disabling it sets the channel as a balanced mono line input, ideal for keyboards, synthesizers, or mixers. *(Manual p. 8–9)*
+* When **Direct Monitor** is active, input signals are routed directly to outputs with zero latency. If the DAW also routes inputs to outputs, users may hear doubled signals (echo effect). *(Manual p. 9)*
+* Phantom Power supplies 48V only to Channel 1. Use with condenser microphones that require it, and disable when not in use to avoid unwanted noise. *(Manual p. 7)*
+
 
 ---
 
