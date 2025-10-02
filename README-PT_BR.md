@@ -188,7 +188,7 @@ Quando o RS_ASIO lida com a saída de áudio do Rocksmith através do ASIO, a pi
 ### Principais recursos
 
 * Duas entradas combinadas (XLR / TRS de 1/4").
-* Alimentação fantasma de +48 V para microfones condensadores (Canal 1).
+* Phantom Power de +48 V para microfones condensadores (Canal 1).
 * Canal 2 selecionável entre **Instrumento (INST)** e **Linha**.
 * Interruptor de monitoramento direto (MON) para monitoramento sem latência.
 * Saídas TRS balanceadas para monitores de estúdio.
@@ -200,7 +200,7 @@ Quando o RS_ASIO lida com a saída de áudio do Rocksmith através do ASIO, a pi
 
 * Funciona como uma entrada de microfone mono.
 * Tipo de conector: **XLR de 3 pinos, mono balanceado**. Balanceado aqui significa que ele transporta o mesmo sinal mono em dois fios com polaridade oposta para cancelar o ruído, não que seja estéreo. Os novos usuários costumam confundir "balanceado" com "estéreo".
-* A alimentação fantasma de +48 V pode ser ativada se você estiver usando um microfone condensador.
+* A Phantom Power de +48 V pode ser ativada se você estiver usando um microfone condensador.
 * Com o **Monitor Direto ativado**, você ouvirá o microfone em mono com latência zero. Se o monitoramento DAW também estiver ativado, você poderá ouvir um eco devido ao sinal duplicado atrasado.
 
 **B) Instrumento (Ch2) com INST ON**
@@ -229,10 +229,10 @@ Quando o RS_ASIO lida com a saída de áudio do Rocksmith através do ASIO, a pi
 * O conector de fone de ouvido suporta TRS estéreo padrão; fones de ouvido de 4 pólos podem não funcionar corretamente.
 * O monitor direto afeta o que você ouve nos fones de ouvido e nas saídas de linha: ele ignora o computador e mixa as entradas diretamente nas saídas, sempre em mono.
 
-**Alimentação fantasma**
+**Phantom Power**
 
 * Fornece 48 V apenas para o Canal 1. Use com microfones condensadores que exijam isso.
-* Desative a alimentação fantasma quando não estiver em uso para evitar ruídos indesejados ou possíveis danos aos microfones dinâmicos/de fita.
+* Desative a Phantom Power quando não estiver em uso para evitar ruídos indesejados ou possíveis danos aos microfones dinâmicos/de fita.
 
 ---
 
