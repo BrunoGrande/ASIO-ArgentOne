@@ -217,7 +217,7 @@ When RS_ASIO handles Rocksmith’s audio output through ASIO, the Windows audio 
 * Behaves as a mono source.
 * **Direct Monitor ON** plays it back in mono with zero latency.
 
-**D) Mic (Ch1) + Inst/Line (Ch2) **simultaneously** Mic (Ch1) + Inst/Line (Ch2) **simultaneously**
+**D) Mic (Ch1) + Inst/Line (Ch2) simultaneously**
 
 * **Manual note:** if the microphone and instrument inputs are used at the same time, **both inputs will be in mono**.
 * **Direct Monitor ON:** the monitored signal is a **mono mix** of both inputs with zero latency.
